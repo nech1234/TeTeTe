@@ -7,9 +7,14 @@ import retrofit2.Response
 
 class AuthService {
     private lateinit var signUpView: SignUpView
+    private lateinit var loginView: LoginView
 
     fun setSignUpView(signUpView: SignUpView){
         this.signUpView = signUpView
+    }
+
+    fun setLoginView(loginView: LoginView){
+        this.loginView = loginView
     }
 
     fun signUp(user : User) {
@@ -27,5 +32,22 @@ class AuthService {
             }
         })
         Log.d("SignUpActivity", "All Finished")
+    }
+
+    fun login(user : User) {
+        RetrofitInstance.authApi.login(user).enqueue(object: Callback<BaseResponse> {
+            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                Log.d("Login-Success", response.toString())
+                val response : BaseResponse = response.body()!!
+                when(val code = response.code) {
+                    200 -> loginView.onLoginSuccess(code)
+                    else -> Log.e("notSuccessLogin","response.code")
+                }
+            }
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                Log.d("Login-Failure", t.message.toString())
+            }
+        })
+        Log.d("LoginActivity", "All Finished")
     }
 }

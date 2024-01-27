@@ -5,6 +5,9 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface AuthApi {
-    @POST("member")
+    @POST("/member")
     fun signUp(@Body user: User) : Call<BaseResponse>
+
+    @POST("/login")
+    fun login(@Body user: User) : Call<BaseResponse>
 }

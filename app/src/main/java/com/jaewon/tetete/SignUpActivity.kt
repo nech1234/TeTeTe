@@ -5,9 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.jaewon.tetete.databinding.ActivitySignUpBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class SignUpActivity : AppCompatActivity(), SignUpView {
@@ -58,7 +55,9 @@ class SignUpActivity : AppCompatActivity(), SignUpView {
     }
 
     override fun onSignUpSuccess() {
+        Log.d("SignUpActivity", "onSignUpSuccess() 호출됨")
         finish()
+        Log.d("SignUpActivity", "finish() 호출됨")
     }
 
     override fun OnSignUpFailure(message: String) {
